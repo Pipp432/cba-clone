@@ -18,7 +18,9 @@ const Navbar = () => {
 
 			setEmployeeID(ID.ID);
 		};
-		fetchID();
+		fetchID().catch(() => {
+			console.log("not enter");
+		});
 		setOpenDropDown(false);
 	}, [employeeID]);
 

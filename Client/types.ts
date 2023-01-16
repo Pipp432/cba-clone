@@ -1,10 +1,10 @@
-import { ChangeEventHandler, Dispatch } from "react";
+import { ChangeEventHandler, Dispatch, TextareaHTMLAttributes } from "react";
 
 export interface InputType {
 	customStyle?: string;
 	placeholder?: string;
 	type?: string;
-	onChangeHandler?: ChangeEventHandler<HTMLInputElement>;
+	onChangeHandler?: any;
 	disabled?: boolean;
 	value?: string;
 }
@@ -42,6 +42,8 @@ export interface FormInputType {
 	disabled?: boolean;
 	onChangeHandler?: ChangeEventHandler<HTMLInputElement>;
 	value?: string;
+	placeholder?: string;
+	type?: string;
 }
 export interface FormSelectType {
 	colSpan: string;

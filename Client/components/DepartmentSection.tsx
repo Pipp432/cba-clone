@@ -1,6 +1,6 @@
 import { DepartmentBtnType, DepartmentType } from "../types";
 import MenuBtn from "./MenuBtn";
-import { financeBtns, salesBtns } from "../data/department/Fin";
+import { financeBtns, salesBtns } from "../data/department/btnLists";
 
 const DepartmentSection = (props: DepartmentType) => {
 	return (

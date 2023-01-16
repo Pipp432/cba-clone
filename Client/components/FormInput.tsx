@@ -10,6 +10,8 @@ const FormInput = (props: FormInputType) => {
 				disabled={props.disabled}
 				onChangeHandler={props.onChangeHandler}
 				value={props.value}
+				type={props.type}
+				placeholder={props.placeholder}
 			/>
 		</div>
 	);

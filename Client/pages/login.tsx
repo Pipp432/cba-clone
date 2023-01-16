@@ -7,9 +7,11 @@ import { GlobalContext } from "../GlobalContext";
 const Login = () => {
 	const [ID, setID] = useState("");
 	const [password, setPassword] = useState("");
+	const [userFound, setUserFound] = useState(true);
 	const { dispatch } = useContext(GlobalContext);
 	const onChangeIDHandler = (event: FormEvent<HTMLInputElement>) => {
 		setID(event.currentTarget.value.toLocaleUpperCase());
+		setUserFound(true);
 	};
 	const onChangePasswordHandler = (event: FormEvent<HTMLInputElement>) => {
 		setPassword(event.currentTarget.value);
@@ -17,22 +19,26 @@ const Login = () => {
 	const onLoginHandler = () => {
 		fetch(`http://localhost:8000/login?ID=${ID}&password=${password}`, {
 			method: "GET",
-			headers: {
-				"Content-Type": "text/plain",
-			},
-		}).then((result) => {
-			if (result) {
-				dispatch({ type: "login", payload: ID });
-				window.location.href = "http://localhost:3000/";
-			} else {
-				console.log("FUCK");
-			}
-		});
+			headers: { contentType: "text/plain" },
+		})
+			.then((result) => {
+				if (result) {
+					dispatch({ type: "login", payload: ID });
+					window.location.href = "http://localhost:3000/";
+					setUserFound(true);
+				} else {
+					setUserFound(false);
+					console.log("FUCK");
+				}
+			})
+			.catch(() => {
+				setUserFound(false);
+			});
 	};
 
 	return (
 		<>
-			<div className='flex w-[30rem] flex-col text-3xl text-black items-center absolute top-10 left-[35%] gap-10'>
+			<div className='flex w-[30rem] flex-col text-3xl text-black items-center absolute top-32 left-[35%] gap-10'>
 				<div className=''>
 					<img
 						src='https://uaterp.cbachula.com/public/img/cba-logo.png'
@@ -57,6 +63,7 @@ const Login = () => {
 					>
 						เข้าสู่ระบบ
 					</button>
+					{!userFound && <div className='text-red-500'>User not found</div>}
 				</div>
 			</div>
 		</>
