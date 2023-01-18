@@ -35,19 +35,24 @@ export interface GlobalStateType extends GlobalStateKeys {
 export interface cardType {
 	children?: any;
 }
-export interface FormInputType {
-	colSpan: string;
+export interface FormInputType extends FormUserInputType {
 	inputStyle?: string;
-	title?: string;
-	disabled?: boolean;
-	onChangeHandler?: ChangeEventHandler<HTMLInputElement>;
 	value?: string;
 	placeholder?: string;
 	type?: string;
 }
-export interface FormSelectType {
-	colSpan: string;
+export interface FormSelectType extends FormUserInputType {
 	selectStyle?: string;
-	title?: string;
 	options: Array<string>;
+}
+
+interface FormUserInputType {
+	colSpan: string;
+	title?: string;
+	disabled?: boolean;
+	onChangeHandler?: ChangeEventHandler<HTMLInputElement>;
+}
+export interface ModalType {
+	title: string;
+	content: string;
 }

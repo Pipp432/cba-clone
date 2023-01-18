@@ -1,28 +1,20 @@
-import { useState, useContext, useEffect } from "react";
-import { GlobalContext } from "../GlobalContext";
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
 	const [openDropDown, setOpenDropDown] = useState(false);
 	const [employeeID, setEmployeeID] = useState("");
+
 	const toggleDropdown = () => {
 		setOpenDropDown(!openDropDown);
 	};
 	useEffect(() => {
-		const fetchID = async () => {
-			const response = await fetch("http://localhost:8000/getID", {
-				method: "GET",
-				headers: {},
-			});
-			const ID = await response.json();
+		setEmployeeID(Cookies.get("ID") as string);
 
-			setEmployeeID(ID.ID);
-		};
-		fetchID().catch(() => {
-			console.log("not enter");
-		});
 		setOpenDropDown(false);
-	}, [employeeID]);
+	}, [Cookies.get("ID")]);
 
 	return (
 		<div className=' sticky top-0 bg-slate-100 shadow h-20 text-xl text-slate-500 z-10'>
@@ -58,6 +50,7 @@ const Navbar = () => {
 						href='/login'
 						onClick={() => {
 							setOpenDropDown(false);
+							Cookies.set("ID", "");
 						}}
 					>
 						<ul className='p-2 hover:bg-slate-400'>ออกจากระบบ</ul>

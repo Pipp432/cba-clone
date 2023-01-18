@@ -1,6 +1,7 @@
 import Card from "../../components/Card";
 import FormInput from "../../components/FormInput";
 import FormSelect from "../../components/FormSelect";
+import Modal from "../../components/Modal";
 import { useSalseOrder } from "../../hooks/useSalesOrder";
 import {
 	defaultFormInputStyle,
@@ -12,12 +13,21 @@ const sales_order = () => {
 
 	const inputStyle = defaultFormInputStyle;
 	const selectStyle = defualtFormSelectStyle;
+	const avaliableCompanies = () => {
+		let companies: Array<string> = ["เลือก supplier"];
+		states.avaliableCompanies.forEach((e: any) => {
+			companies.push(`${e.company_id} : ${e.name}`);
+		});
+
+		return companies;
+	};
 
 	return (
 		<div className='flex flex-col ml-40 '>
 			<div className='text-3xl text-black my-6 font-bold'>
 				ใบสั่งขาย / Sales Order (SO)
 			</div>
+		{error	<Modal title='Error' content='No user' />}
 			<Card>
 				<div className='grid grid-cols-8 m-4 gap-4'>
 					<FormInput
@@ -66,13 +76,15 @@ const sales_order = () => {
 						colSpan='col-span-2'
 						selectStyle={selectStyle}
 						title='Supplier'
-						options={["เลือก supplier"]}
+						options={[...avaliableCompanies()]}
+						disabled={states.openProductPanel}
 					/>
 					<FormSelect
 						colSpan='col-span-2'
 						selectStyle={selectStyle}
 						title='ประเภทสินค้า'
 						options={["เลือกประเภทสินค้า", "Stock", "Order", "Install"]}
+						disabled={states.openProductPanel}
 					/>
 
 					<button
