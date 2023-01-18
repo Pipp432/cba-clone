@@ -27,7 +27,7 @@ const sales_order = () => {
 			<div className='text-3xl text-black my-6 font-bold'>
 				ใบสั่งขาย / Sales Order (SO)
 			</div>
-		{error	<Modal title='Error' content='No user' />}
+			{states.openModal && <Modal title='Error' content='No user' />}
 			<Card>
 				<div className='grid grid-cols-8 m-4 gap-4'>
 					<FormInput
