@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { salesOrderError } from "../data/department/sales/errorMsg";
 export const useSalseOrder = () => {
 	const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
 	const [openProductPanel, setOpenProductPanel] = useState(false);
@@ -7,6 +8,7 @@ export const useSalseOrder = () => {
 	const [customerAddress, setCustomerAddress] = useState("");
 	const [openModal, setOpenModal] = useState(false);
 	const [avaliableCompanies, setAvaliableCompanies] = useState([]);
+	const [modalErrorText, setModalErrorText] = useState({});
 	const submitSalesCustomerHandler = () => {
 		setOpenProductPanel(true);
 		setDisableSubmitBtn(true);
@@ -45,7 +47,7 @@ export const useSalseOrder = () => {
 		return result;
 	};
 	const toggleModal = () => {
-		setOpenModal(openModal!);
+		setOpenModal(!openModal);
 	};
 	const queryEmployeeIdHandler = (event: FormEvent<HTMLInputElement>) => {
 		if (event.currentTarget.value.length === 5) {
@@ -56,7 +58,9 @@ export const useSalseOrder = () => {
 							fullnameObj[0].Firstname + " " + fullnameObj[0].Surname;
 						setEmployeeFullname(fullname);
 					} else {
-						toggleModal;
+						setEmployeeFullname("");
+						setModalErrorText(salesOrderError.userNotFound);
+						toggleModal();
 					}
 				}
 			);
@@ -75,6 +79,11 @@ export const useSalseOrder = () => {
 					const fullname = obj[0].Firstname + " " + obj[0].Surname;
 					setCustomerFullname(fullname);
 					setCustomerAddress(obj[0].Address);
+				} else {
+					setCustomerFullname("");
+					setCustomerAddress("");
+					setModalErrorText(salesOrderError.customerNotFound);
+					toggleModal();
 				}
 			});
 		}
@@ -89,6 +98,7 @@ export const useSalseOrder = () => {
 			customerFullname,
 			avaliableCompanies,
 			openModal,
+			modalErrorText,
 		},
 		handlers: {
 			submitSalesCustomerHandler,

@@ -6,6 +6,7 @@ const FormInput = (props: FormInputType) => {
 		<div className={props.colSpan}>
 			<div className='mb-2'>{props.title}</div>
 			<Input
+				id={props.id}
 				customStyle={props.inputStyle}
 				disabled={props.disabled}
 				onChangeHandler={props.onChangeHandler}

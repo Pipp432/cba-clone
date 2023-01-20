@@ -4,7 +4,11 @@ const FormSelect = (props: FormSelectType) => {
 	return (
 		<div className={props.colSpan}>
 			<div className='mb-2'>{props.title}</div>
-			<select className={props.selectStyle} disabled={props.disabled}>
+			<select
+				className={props.selectStyle}
+				disabled={props.disabled}
+				id={props.id}
+			>
 				{props.options.map((option: string) => {
 					return <option key={option}>{option}</option>;
 				})}

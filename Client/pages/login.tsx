@@ -1,18 +1,23 @@
 import Input from "../components/Input";
 import { FormEvent, useEffect, useState } from "react";
 import Cookie from "js-cookie";
+import { generateErrorModal } from "../utils/functions";
+import { loginErrorMsg } from "../data/department/login/errorMsg";
 
 const Login = () => {
 	const [ID, setID] = useState("");
 	const [password, setPassword] = useState("");
-	const [userFound, setUserFound] = useState(true);
+
+	const [openErrorModal, setOpenErrorModal] = useState(false);
 	useEffect(() => {
 		if (Cookie.get("ID")) Cookie.remove("ID");
 	}, []);
+	const modalToggler = () => {
+		setOpenErrorModal(!openErrorModal);
+	};
 
 	const onChangeIDHandler = (event: FormEvent<HTMLInputElement>) => {
 		setID(event.currentTarget.value.toLocaleUpperCase());
-		setUserFound(true);
 	};
 	const onChangePasswordHandler = (event: FormEvent<HTMLInputElement>) => {
 		setPassword(event.currentTarget.value);
@@ -31,18 +36,19 @@ const Login = () => {
 	const onLoginHandler = () => {
 		getData(ID, password).then((data) => {
 			if (data[0]) {
-				setUserFound(true);
 				Cookie.set("ID", data[0].ID as string);
 
 				window.location.href = `/main/${data[0].ID}`;
 			} else {
-				setUserFound(false);
+				modalToggler();
 			}
 		});
 	};
 
 	return (
 		<>
+			{openErrorModal &&
+				generateErrorModal(loginErrorMsg.userNotFound, modalToggler)}
 			<div className='flex w-[30rem] flex-col text-3xl text-black items-center absolute top-32 left-[35%] gap-10'>
 				<div className=''>
 					<img
@@ -68,7 +74,6 @@ const Login = () => {
 					>
 						เข้าสู่ระบบ
 					</button>
-					{!userFound && <div className='text-red-500'>User not found</div>}
 				</div>
 			</div>
 		</>

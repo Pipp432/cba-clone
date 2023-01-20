@@ -10,6 +10,7 @@ const Input = (props: InputType) => {
 							? props.customStyle
 							: "rounded bg-slate-100 border-slate-400 border-2 h-8 w-72 p-2"
 					}
+					id={props.id}
 					placeholder={props.placeholder}
 					type={props.type}
 					onChange={props.onChangeHandler}
@@ -18,6 +19,7 @@ const Input = (props: InputType) => {
 				/>
 			) : (
 				<textarea
+					id={props.id}
 					className={
 						props.customStyle
 							? props.customStyle

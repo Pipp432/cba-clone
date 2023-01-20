@@ -1,7 +1,7 @@
 import Card from "../../components/Card";
 import FormInput from "../../components/FormInput";
 import FormSelect from "../../components/FormSelect";
-import Modal from "../../components/Modal";
+import { generateErrorModal } from "../../utils/functions";
 import { useSalseOrder } from "../../hooks/useSalesOrder";
 import {
 	defaultFormInputStyle,
@@ -27,7 +27,8 @@ const sales_order = () => {
 			<div className='text-3xl text-black my-6 font-bold'>
 				ใบสั่งขาย / Sales Order (SO)
 			</div>
-			{states.openModal && <Modal title='Error' content='No user' />}
+			{states.openModal &&
+				generateErrorModal(states.modalErrorText, handlers.toggleModal)}
 			<Card>
 				<div className='grid grid-cols-8 m-4 gap-4'>
 					<FormInput

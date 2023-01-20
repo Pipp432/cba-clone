@@ -5,7 +5,17 @@ module.exports = {
 		"./components/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			animation: {
+				"fade-in": "fade 0.3s ease-in",
+			},
+			keyframes: {
+				fade: {
+					"0%": { opacity: 0 },
+					"100%": { opacity: 1 },
+				},
+			},
+		},
 	},
 	plugins: [],
 };

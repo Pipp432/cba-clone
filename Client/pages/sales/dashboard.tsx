@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Data } from "../../data/chartData";
 import LineChart from "../../components/LineChart";
 import "chart.js/auto";
+import Link from "next/link";
 const dashboard = () => {
 	const [loaded, setLoaded] = useState(false);
 	const [chartData, setChartData] = useState({
@@ -30,6 +31,7 @@ const dashboard = () => {
 		return (
 			<div className='w-96'>
 				<LineChart chartData={chartData} />
+				<Link href='/'></Link>
 			</div>
 		);
 	}
