@@ -9,9 +9,21 @@ export const useSalseOrder = () => {
 	const [openModal, setOpenModal] = useState(false);
 	const [avaliableCompanies, setAvaliableCompanies] = useState([]);
 	const [modalErrorText, setModalErrorText] = useState({});
+	const [products, setProducts] = useState([]);
 	const submitSalesCustomerHandler = () => {
 		setOpenProductPanel(true);
 		setDisableSubmitBtn(true);
+	};
+	const fetchAllProductsInCompany = async (company_id: string) => {
+		const response = await fetch(
+			`http://localhost:3000/api/fetchProduct/fetchProductById?company_id=${company_id}`,
+			{
+				method: "GET",
+				headers: {},
+			}
+		);
+		const result = response.json();
+		return result;
 	};
 	const fetchEmployee = async (id: string) => {
 		const response = await fetch(
@@ -26,7 +38,7 @@ export const useSalseOrder = () => {
 	};
 	const fetchCompaniesInProductLine = async (id: string) => {
 		const response = await fetch(
-			`http://localhost:3000/api/fetchProduct/fetchCompany/${id}`,
+			`http://localhost:3000/api/fetchCompany/${id}`,
 			{
 				method: "GET",
 				headers: {},
@@ -99,12 +111,15 @@ export const useSalseOrder = () => {
 			avaliableCompanies,
 			openModal,
 			modalErrorText,
+			products,
 		},
 		handlers: {
 			submitSalesCustomerHandler,
 			queryEmployeeIdHandler,
 			queryCustomerHandler,
 			toggleModal,
+			fetchAllProductsInCompany,
+			setProducts,
 		},
 	};
 };

@@ -11,21 +11,10 @@ import {
 import { thaiProvince } from "../../data/thaiProvince";
 import Modal from "../../components/Modal";
 import { useState } from "react";
+import { formsIds } from "../../data/department/sales/formInputs";
 const inputStyle = defaultFormInputStyle;
 const selectStyle = defualtFormSelectStyle;
 const textareaStyle = defaultFormTextareaStyle;
-const formsIds: Array<string> = [
-	"prefix",
-	"firstname",
-	"lastname",
-	"nickname",
-	"address",
-	"province",
-	"zipcode",
-	"phoneNumber",
-	"email",
-	"citizenId",
-];
 
 const add_customer = () => {
 	const [openModal, setOpenModal] = useState(false);
@@ -58,9 +47,9 @@ const add_customer = () => {
 		console.log(result);
 		if (result) {
 			modalToggler();
-			// setTimeout(() => {
-			// 	window.location.href = "http://localhost:3000/";
-			// }, 1000);
+			setTimeout(() => {
+				window.location.href = "http://localhost:3000/";
+			}, 1000);
 		}
 	};
 	return (
